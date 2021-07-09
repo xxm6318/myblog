@@ -41,7 +41,7 @@
   <body>
     <a-scene>
       <a-entity>
-        <a-sky src="a1.jpg" rotation="0 -130 0" id="bg"></a-sky>
+        <a-sky src="images/a1.jpg" rotation="0 -130 0" id="bg"></a-sky>
         <a-text value="min.net.cn" width="3" font="https://cdn.aframe.io/fonts/Roboto-msdf.json" position="-2.5 0.25 -1.5"
                 rotation="0 15 0" id="info"></a-text>
       </a-entity>
@@ -57,7 +57,7 @@
   </body>
   <script>
     $('.thumb').on('click','div',function(){
-      $('#bg').attr('src', 'a' + $(this).attr('data-id') + '.jpg')
+      $('#bg').attr('src', 'images/a' + $(this).attr('data-id') + '.jpg')
     })
   </script>
 </html>
