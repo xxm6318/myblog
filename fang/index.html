@@ -60,7 +60,7 @@
   <a-scene>
     <a-entity>
       <a-sky src="" rotation="0 -130 0" id="bg"></a-sky>
-      <a-text value="min.net.cn" width="3" font="https://cdn.aframe.io/fonts/Roboto-msdf.json" position="-2.5 0.25 -1.5"
+      <a-text value="min.net.cn" width="10" font="https://cdn.aframe.io/fonts/Roboto-msdf.json" position="-2.5 0.25 -1.5"
         rotation="0 15 0" id="info"></a-text>
     </a-entity>
     <a-animation attribute="rotation" dur="10000" fill="forwards" to="0 360 0" repeat="indefinite"></a-animation>
@@ -83,7 +83,6 @@
   })
   $('.thumb').on('click', 'div', function () {
     var url = 'images/a' + $(this).attr('data-id') + '.jpg';
-    $('#info').attr('value','loading')
     $('.maskDiv').css({zIndex:999})
     loadImage(url, function(){
       $('#bg').attr('src', url)
