@@ -39,7 +39,7 @@
         }
 
         button {
-            margin: 40px auto;
+            margin: 30px auto;
             display: block;
             width: 240px;
             height: 60px;
@@ -51,12 +51,37 @@
             border: none;
             outline: none;
         }
+        .img-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-wrapper .prev,
+        .img-wrapper .next {
+            flex:1 1 auto;
+            display: block;
+            background-image: url(./imgs/arrow-btn.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center left;
+            width: 2.8rem;
+            height: 2.8rem;            
+            cursor: pointer;
+        }
+
+        .img-wrapper .prev {
+            margin-right: 0.6rem;
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
 
         .img {
-            width: 320px;
-            height: 320px;
+            width: 230px;
+            height: 230px;
             display: block;
             margin: auto;
+            margin-right: 0.6rem;
         }
 
         .cus-text {
@@ -102,20 +127,24 @@
     </ul>
 
     <button id="upload">上传图片</button>
-    <canvas id="canvas" width="800" height="800"></canvas>
-    <img src="imgs/avatar-1.png" class="img" id="head">
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <div class="img-wrapper">
+        <span class="prev" id="prev"></span>
+        <img src="imgs/avatar-1.png" class="img" id="head">
+        <span class="next" id="next"></span>
+    </div>
     <input type="file" accept="image/*" hidden>
     
     <div class="tip-text" id="tip-download">
         长按图片保存
     </div>
-    <button id="download" style="display: none;">下载图片</button>
+    <button id="download" style="display: none;">保存图片</button>
 </div>
 
 
 
 <div class="tip-text light mt">Powered By：min.net.cn</div>
-<div class="tip-text light mt2">您的图片数据只保存在本地</div>
+<div class="tip-text light mt2">上传图片数据只保存在本地</div>
 <div class="tip-text light mt2">本程序仅提供生成，不参与用户创作</div>
 <div class="tip-text light mt2">所有由此程序生成的头像导致的违法行为均由用户承担</div>
 
@@ -129,8 +158,11 @@
     const headImg = document.querySelector('.img')
     const tipDownload = document.querySelector('#tip-download')
     const fileUpload = document.querySelector('input')
+    const prev = document.querySelector('#prev')
+    const next = document.querySelector('#next')
     let upLoadImg
     let avatarIcon
+    let current = 0
 
     function isPC() {
         if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
@@ -151,7 +183,7 @@
 
     // 画canvas
     function drawImage(img) {
-        ctx.drawImage(img, 0, 0, 800, 800)
+        ctx.drawImage(img, 0, 0, 300, 300)
     }
 
     // 清空canvas
@@ -178,11 +210,38 @@
     buttonBtn.addEventListener('click', function () {
         fileUpload.click()
     })
-    // 下载图片
+    // 保存图片
     downloadBtn.addEventListener('click', function () {
         var myBlob = dataURLtoBlob(headImg.src)
         var myUrl = URL.createObjectURL(myBlob)
         downloadFile(myUrl,name)
+    })
+
+     // 上一个
+     prev.addEventListener('click', function () {
+        current--;
+        if(current < 0){
+            current = 5;            
+        }
+        resetCanvas()
+        upLoadImg && drawImage(upLoadImg)
+        drawImage(img[current])
+        avatarIcon = img[current]
+        canvasToImg()
+
+    })
+
+     // 下一个
+     next.addEventListener('click', function () {
+        current++;
+        if(current >5 ){
+            current = 0;            
+        }
+        resetCanvas()
+        upLoadImg && drawImage(upLoadImg)
+        drawImage(img[current])
+        avatarIcon = img[current]
+        canvasToImg()
     })
     
     function downloadFile(url,name='love_china'){
