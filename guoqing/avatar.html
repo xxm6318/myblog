@@ -86,10 +86,11 @@
     <canvas id="canvas" width="800" height="800"></canvas>
     <img src="imgs/avatar-1.png" class="img" id="head">
     <input type="file" accept="image/*" hidden>
-    <button id="download" style="display: none;">下载图片</button>
+    
     <div style="margin-top:40px ;text-align: center;font-family:‘Times New Roman’,Georgia,Serif;color: white;" ;>
         长安图片保存
     </div>
+    <button id="download" style="display: none;">下载图片</button>
 </div>
 
 <div style="margin-top:40px ;text-align: center;font-family:‘Times New Roman’,Georgia,Serif;color: white;" ;>提示：您的图片数据只保存在本地</div>
@@ -106,6 +107,20 @@
     let upLoadImg
     let avatarIcon
 
+    function isPC() {
+        if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    if(isPC()){
+        downloadBtn.style.display = "block"
+    } else {
+        downloadBtn.style.display = "none"
+    }
 
     // 画canvas
     function drawImage(img) {
