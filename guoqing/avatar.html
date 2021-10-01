@@ -66,6 +66,25 @@
             user-select: none;
         }
 
+        .tip-text{
+            margin-top:10px ;
+            text-align: center;
+            font-family:‘Times New Roman’,Georgia,Serif;
+            color: white;
+        }
+
+        .light{
+            color: #ffffffa6;
+            font-size: 12px;
+        }
+
+        .mt{
+            margin-top: 40px;
+        }
+
+        .mt2{
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -87,15 +106,15 @@
     <img src="imgs/avatar-1.png" class="img" id="head">
     <input type="file" accept="image/*" hidden>
     
-    <div style="margin-top:40px ;text-align: center;font-family:‘Times New Roman’,Georgia,Serif;color: white;" ;>
+    <div class="tip-text" id="tip-download">
         长安图片保存
     </div>
     <button id="download" style="display: none;">下载图片</button>
 </div>
 
-<div style="margin-top:40px ;text-align: center;font-family:‘Times New Roman’,Georgia,Serif;color: white;" ;>请勿恶意使用该工具，否则用户自行承担法律责任</div>
-<div style="margin-top:10px ;text-align: center;font-family:‘Times New Roman’,Georgia,Serif;color: white;" ;>您的图片数据只保存在本地</div>
-<div style="margin-top:10px ;text-align: center;font-family:‘Times New Roman’,Georgia,Serif;color: white;" ;>Powered By：min.net.cn</div>
+<div class="tip-text light mt">请勿恶意使用该工具，否则用户自行承担法律责任</div>
+<div class="tip-text light mt2">您的图片数据只保存在本地</div>
+<div class="tip-text light mt2">Powered By：min.net.cn</div>
 
 <script>
     const ul = document.querySelector('ul')
@@ -105,6 +124,7 @@
     const canvas = document.querySelector('#canvas')
     const ctx = canvas.getContext('2d')
     const headImg = document.querySelector('.img')
+    const tipDownload = document.querySelector('#tip-download')
     const fileUpload = document.querySelector('input')
     let upLoadImg
     let avatarIcon
@@ -120,8 +140,10 @@
 
     if(isPC()){
         downloadBtn.style.display = "block"
+        tipDownload.style.display = "none"
     } else {
         downloadBtn.style.display = "none"
+        tipDownload.style.display = "block"
     }
 
     // 画canvas
